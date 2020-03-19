@@ -1,0 +1,14 @@
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\coronaapp.exe.config
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\coronaapp.exe
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\coronaapp.pdb
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\CsQuery.dll
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\RestSharp.dll
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\CsQuery.xml
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Can\source\repos\coronaapp\coronaapp\bin\Debug\RestSharp.xml
+C:\Users\Can\source\repos\coronaapp\coronaapp\obj\Debug\coronaapp.csprojAssemblyReference.cache
+C:\Users\Can\source\repos\coronaapp\coronaapp\obj\Debug\coronaapp.csproj.CoreCompileInputs.cache
+C:\Users\Can\source\repos\coronaapp\coronaapp\obj\Debug\coronaapp.csproj.CopyComplete
+C:\Users\Can\source\repos\coronaapp\coronaapp\obj\Debug\coronaapp.exe
+C:\Users\Can\source\repos\coronaapp\coronaapp\obj\Debug\coronaapp.pdb
