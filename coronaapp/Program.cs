@@ -60,10 +60,11 @@ namespace coronaapp
                     Calculations(caseCount, deathCount, now);
                     cases.Add(new CoronaCases { Cases = caseCount, Deaths = deathCount, DataTime = now });
                     WriteData();
-                    await Task.Delay(timeToSleep);
-                    await Start();
+                    
                 }
             }
+            await Task.Delay(timeToSleep);
+            await Start();
         }
 
         private static void GetCounts(List<IDomObject> numbers, out int deathCount, out int caseCount)
