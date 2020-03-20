@@ -82,7 +82,7 @@ namespace coronaapp
                 return;
             }
 
-            var difference = (DateTime.Now - lastCase.DataTime).TotalMinutes;
+            var difference = (int)(DateTime.Now - lastCase.DataTime).TotalMinutes;
             Console.WriteLine($"{DateTime.Now} - {caseCount - lastCase.Cases} new cases and {deathCount - lastCase.Deaths} new deaths in {difference} minutes \r\nTotal Cases as of now: {caseCount} - Total Deaths as of now: {deathCount}");
 
         }
