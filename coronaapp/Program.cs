@@ -81,12 +81,12 @@ namespace coronaapp
             if (lastCase == null)
             {
                 
-                Console.WriteLine($"{now} - There's no data to compare yet! Total Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
+                Console.WriteLine($"{now} - There's no data to compare yet!\r\nTotal Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
                 return;
             }
 
             var difference = (int)(now - lastCase.DataTime).TotalMinutes;
-            Console.WriteLine($"{now} - {caseCount - lastCase.Cases} new cases and {deathCount - lastCase.Deaths} new deaths in {difference} minutes \r\nTotal Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
+            Console.WriteLine($"{now} - {caseCount - lastCase.Cases} new cases and {deathCount - lastCase.Deaths} new deaths in {difference} minutes\r\nTotal Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
 
         }
     }
