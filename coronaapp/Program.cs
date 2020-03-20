@@ -16,13 +16,14 @@ namespace coronaapp
 {
     class Program
     {
-        private static List<CoronaCases> cases = new List<CoronaCases>();
+        private static List<CoronaCases> cases;
         private const string data = "data.json";
         private const string url = "https://www.worldometers.info/coronavirus/";
+        private const int timeToSleep = 120000;
         private static string dataPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, data);
         static async Task Main(string[] args)
         {
-            GetData();
+            cases = GetData();
             await Start();
         }
 
@@ -37,13 +38,10 @@ namespace coronaapp
             {
                 var file = File.ReadAllText(dataPath);
                 var parsed = JsonConvert.DeserializeObject<List<CoronaCases>>(file);
-                cases = parsed;
-                return cases;
+                return parsed;
             }
 
-            cases = new List<CoronaCases>();
-
-            return cases;
+            return new List<CoronaCases>();
         }
 
         private static async Task Start()
@@ -58,35 +56,41 @@ namespace coronaapp
                 var numbers = dom[".maincounter-number"].Selection.ToList();
                 if (numbers.Count > 0)
                 {
-                    var casess = numbers[0].InnerHTML.ToString();
-                    var caseCount = int.Parse(Regex.Match(casess.Replace(",", ""), "[0-9]+").Value);
-                    var deaths = numbers[1].InnerHTML.ToString();
-                    var deathCount = int.Parse(Regex.Match(deaths.Replace(",", ""), "[0-9]+").Value);
-                    Calculations(caseCount, deathCount);
-                    //var deaths = numbers[1]["span"];
-                    cases.Add(new CoronaCases { Cases = caseCount, Deaths = deathCount, DataTime = DateTime.Now });
+                    GetCounts(numbers, out var deathCount, out var caseCount);
+                    Calculations(caseCount, deathCount, now);
+                    cases.Add(new CoronaCases { Cases = caseCount, Deaths = deathCount, DataTime = now });
                     WriteData();
-                    await Task.Delay(120000);
+                    await Task.Delay(timeToSleep);
                     await Start();
                 }
             }
-
         }
 
-        private static void Calculations(int caseCount, int deathCount)
+        private static void GetCounts(List<IDomObject> numbers, out int deathCount, out int caseCount)
         {
+            caseCount = int.Parse(Regex.Match(numbers[0].InnerHTML.Replace(",", ""), "[0-9]+").Value);
+            deathCount = int.Parse(Regex.Match(numbers[1].InnerHTML.Replace(",", ""), "[0-9]+").Value);
+        }
+
+        private static void Calculations(int caseCount, int deathCount, DateTime now)
+        {
+            var formattedCases = caseCount.ToString("N0");
+            var formattedDeaths = deathCount.ToString("N0");
             var lastCase = cases.LastOrDefault();
             if (lastCase == null)
             {
-                Console.WriteLine($"{DateTime.Now} - There's no data to compare yet! Total Cases as of now: {caseCount} - Total Deaths as of now: {deathCount}");
+                
+                Console.WriteLine($"{now} - There's no data to compare yet! Total Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
                 return;
             }
 
-            var difference = (int)(DateTime.Now - lastCase.DataTime).TotalMinutes;
-            Console.WriteLine($"{DateTime.Now} - {caseCount - lastCase.Cases} new cases and {deathCount - lastCase.Deaths} new deaths in {difference} minutes \r\nTotal Cases as of now: {caseCount} - Total Deaths as of now: {deathCount}");
+            var difference = (int)(now - lastCase.DataTime).TotalMinutes;
+            Console.WriteLine($"{now} - {caseCount - lastCase.Cases} new cases and {deathCount - lastCase.Deaths} new deaths in {difference} minutes \r\nTotal Cases as of now: {formattedCases} - Total Deaths as of now: {formattedDeaths}");
 
         }
     }
+
+    
 
     public class CoronaCases
     {
